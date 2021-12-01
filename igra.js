@@ -18,15 +18,16 @@ startGame()
 
 function startGame() {
     myGameArea = new gamearea();
-    myGamePiece = new component(30, 30, "red", 10, 75);
+    myGamePiece = new component(30, 30, "red", 150, 150);
     myscore = new component("15px", "Consolas", "black", 220, 25, "text");
     myGameArea.start();
 }
 
 function gamearea() {
     this.canvas = document.createElement("canvas");
-    this.canvas.width = 320;
-    this.canvas.height = 180;    
+    this.canvas.width = 1500;
+    this.canvas.height = 730;
+
     document.getElementById("canvascontainer").appendChild(this.canvas);
     this.context = this.canvas.getContext("2d");
     this.pause = false;
@@ -49,7 +50,8 @@ function component(width, height, color, x, y, type) {
     if (type == "text") {
         this.text = color;
     }
-    this.score = 0;    this.width = width;
+    this.score = 0;    
+    this.width = width;
     this.height = height;
     this.speedX = 0;
     this.speedY = 0;    
@@ -91,8 +93,46 @@ function updateGameArea() {
             document.getElementById("myfilter").style.display = "block";
             document.getElementById("myrestartbutton").style.display = "block";
             return;
-        } 
+        }
     }
+    document.addEventListener('keydown', function(event) {
+        	var key_press = String.fromCharCode(event.keyCode);
+        	if (key_press == "W")
+        	{
+        		myGamePiece.speedY = -40; 
+        	}
+        	if (key_press == "S")
+        	{
+        		myGamePiece.speedY = 40; 
+        	}
+        	if (key_press == "A")
+        	{
+        		myGamePiece.speedX = -40; 
+        	}
+        	if (key_press == "D")
+        	{
+        		myGamePiece.speedX = 40; 
+        	}
+        });
+    document.addEventListener('keyup', function(event) {
+        	var key_press = String.fromCharCode(event.keyCode);
+        	if (key_press == "W")
+        	{
+        		myGamePiece.speedY = 0; 
+        	}
+        	if (key_press == "S")
+        	{
+        		myGamePiece.speedY = 0; 
+        	}
+        	if (key_press == "A")
+        	{
+        		myGamePiece.speedX = 0; 
+        	}
+        	if (key_press == "D")
+        	{
+        		myGamePiece.speedX = 0; 
+        	}
+        });
     if (myGameArea.pause == false) {
         myGameArea.clear();
         myGameArea.frameNo += 1;
@@ -101,10 +141,10 @@ function updateGameArea() {
             x = myGameArea.canvas.width;
             y = myGameArea.canvas.height - 100;
             min = 20;
-            max = 100;
+            max = 400;
             height = Math.floor(Math.random()*(max-min+1)+min);
-            min = 50;
-            max = 100;
+            min = 100;
+            max = 200;
             gap = Math.floor(Math.random()*(max-min+1)+min);
             myObstacles.push(new component(10, height, "green", x, 0));
             myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
@@ -124,27 +164,6 @@ function updateGameArea() {
 function everyinterval(n) {
     if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
     return false;
-}
-
-function moveup(e) {
-    myGamePiece.speedY = -1; 
-}
-
-function movedown() {
-    myGamePiece.speedY = 1; 
-}
-
-function moveleft() {
-    myGamePiece.speedX = -1; 
-}
-
-function moveright() {
-    myGamePiece.speedX = 1; 
-}
-
-function clearmove(e) {
-    myGamePiece.speedX = 0; 
-    myGamePiece.speedY = 0; 
 }
 
 startGame();
