@@ -22,6 +22,9 @@ document.addEventListener('keydown', function(event) {
         case "D":
             myGamePiece.speedX = playerSpeed; 
             break;
+        case "R":
+            restartGame();
+            break;
         default:
             break;
         }
@@ -47,16 +50,16 @@ document.addEventListener('keyup', function(event) {
 });
 
 function restartGame() {
-document.getElementById("myfilter").style.display = "none";
-document.getElementById("myrestartbutton").style.display = "none";
-myGameArea.stop();
-myGameArea.clear();
-myGameArea = {};
-myGamePiece = {};
-myObstacles = [];
-myscore = {};
-document.getElementById("canvascontainer").innerHTML = "";
-startGame()
+    document.getElementById("myfilter").style.display = "none";
+    document.getElementById("myrestartbutton").style.display = "none";
+    myGameArea.stop();
+    myGameArea.clear();
+    myGameArea = {};
+    myGamePiece = {};
+    myObstacles = [];
+    myscore = {};
+    document.getElementById("canvascontainer").innerHTML = "";
+    startGame()
 }
 
 function startGame() {
@@ -142,11 +145,11 @@ function updateGameArea() {
         myGameArea.clear();
         myGameArea.frameNo += 1;
         myscore.score +=1;        
-        if (myGameArea.frameNo == 1 || everyinterval(400)) {
-            x = myGameArea.canvas.width;
+        if (myGameArea.frameNo == 1 || everyinterval(20)) {
+            x = canvasWidth;
             y = myGameArea.canvas.height - 100;
-            min = 20;
-            max = 400;
+            min = 60;
+            max = canvasHeight-300;
             height = Math.floor(Math.random()*(max-min+1)+min);
             min = 150;
             max = 300;
@@ -155,7 +158,7 @@ function updateGameArea() {
             myObstacles.push(new component(90, x - height - gap, "green", x, height + gap));
         }
         for (i = 0; i < myObstacles.length; i += 1) {
-            myObstacles[i].x += -1;
+            myObstacles[i].x += -20;
             myObstacles[i].update();
         }
         myscore.text="SCORE: " + myscore.score + "| Pos: " + myGamePiece.x + ", " + myGamePiece.y;        
