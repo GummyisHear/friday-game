@@ -2,24 +2,28 @@ var myGameArea;
 var myGamePiece;
 var myObstacles = [];
 var myscore;
+var canvasWidth = 1920;
+var canvasHeight = 942;
+var playerSpeed = 40;
 
 document.addEventListener('keydown', function(event) {
         var key_press = String.fromCharCode(event.keyCode);
-        if (key_press == "W")
-        {
-            myGamePiece.speedY = -40; 
-        }
-        if (key_press == "S")
-        {
-            myGamePiece.speedY = 40; 
-        }
-        if (key_press == "A")
-        {
-            myGamePiece.speedX = -40; 
-        }
-        if (key_press == "D")
-        {
-            myGamePiece.speedX = 40; 
+
+        switch(key_press) {
+        case "W":
+            myGamePiece.speedY = -playerSpeed;
+            break;
+        case "A":
+            myGamePiece.speedX = -playerSpeed; 
+            break;
+        case "S":
+            myGamePiece.speedY = playerSpeed; 
+            break;
+        case "D":
+            myGamePiece.speedX = playerSpeed; 
+            break;
+        default:
+            break;
         }
     });
 document.addEventListener('keyup', function(event) {
@@ -57,15 +61,15 @@ startGame()
 
 function startGame() {
     myGameArea = new gamearea();
-    myGamePiece = new component(30, 30, "red", 150, 150);
+    myGamePiece = new component(60, 60, "red", 150, 150);
     myscore = new component("15px", "Consolas", "black", 220, 25, "text");
     myGameArea.start();
 }
 
 function gamearea() {
     this.canvas = document.createElement("canvas");
-    this.canvas.width = 1500;
-    this.canvas.height = 730;
+    this.canvas.width = canvasWidth;
+    this.canvas.height = canvasHeight;
 
     document.getElementById("canvascontainer").appendChild(this.canvas);
     this.context = this.canvas.getContext("2d");
@@ -138,26 +142,40 @@ function updateGameArea() {
         myGameArea.clear();
         myGameArea.frameNo += 1;
         myscore.score +=1;        
-        if (myGameArea.frameNo == 1 || everyinterval(150)) {
+        if (myGameArea.frameNo == 1 || everyinterval(400)) {
             x = myGameArea.canvas.width;
             y = myGameArea.canvas.height - 100;
             min = 20;
             max = 400;
             height = Math.floor(Math.random()*(max-min+1)+min);
-            min = 100;
-            max = 200;
+            min = 150;
+            max = 300;
             gap = Math.floor(Math.random()*(max-min+1)+min);
-            myObstacles.push(new component(10, height, "green", x, 0));
-            myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
+            myObstacles.push(new component(90, height, "green", x, 0));
+            myObstacles.push(new component(90, x - height - gap, "green", x, height + gap));
         }
         for (i = 0; i < myObstacles.length; i += 1) {
             myObstacles[i].x += -1;
             myObstacles[i].update();
         }
-        myscore.text="SCORE: " + myscore.score;        
+        myscore.text="SCORE: " + myscore.score + "| Pos: " + myGamePiece.x + ", " + myGamePiece.y;        
         myscore.update();
-        myGamePiece.x += myGamePiece.speedX;
-        myGamePiece.y += myGamePiece.speedY;    
+
+        //Проверки для того, чтобы игрок не мог пройти за края карты
+        if(myGamePiece.x < 0)
+            myGamePiece.x = 0;
+        else if(myGamePiece.x > canvasWidth)
+            myGamePiece.x = canvasWidth;
+        else
+            myGamePiece.x += myGamePiece.speedX;
+
+        if (myGamePiece.y < 0)
+            myGamePiece.y = 0;
+        else if (myGamePiece.y > canvasHeight)
+            myGamePiece.y = canvasHeight;
+        else  
+            myGamePiece.y += myGamePiece.speedY;
+
         myGamePiece.update();
     }
 }
