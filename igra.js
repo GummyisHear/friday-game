@@ -3,6 +3,45 @@ var myGamePiece;
 var myObstacles = [];
 var myscore;
 
+document.addEventListener('keydown', function(event) {
+        var key_press = String.fromCharCode(event.keyCode);
+        if (key_press == "W")
+        {
+            myGamePiece.speedY = -40; 
+        }
+        if (key_press == "S")
+        {
+            myGamePiece.speedY = 40; 
+        }
+        if (key_press == "A")
+        {
+            myGamePiece.speedX = -40; 
+        }
+        if (key_press == "D")
+        {
+            myGamePiece.speedX = 40; 
+        }
+    });
+document.addEventListener('keyup', function(event) {
+    var key_press = String.fromCharCode(event.keyCode);
+    if (key_press == "W")
+    {
+        myGamePiece.speedY = 0; 
+    }
+    if (key_press == "S")
+    {
+        myGamePiece.speedY = 0; 
+    }
+    if (key_press == "A")
+    {
+        myGamePiece.speedX = 0; 
+    }
+    if (key_press == "D")
+    {
+        myGamePiece.speedX = 0; 
+    }
+});
+
 function restartGame() {
 document.getElementById("myfilter").style.display = "none";
 document.getElementById("myrestartbutton").style.display = "none";
@@ -95,44 +134,6 @@ function updateGameArea() {
             return;
         }
     }
-    document.addEventListener('keydown', function(event) {
-        	var key_press = String.fromCharCode(event.keyCode);
-        	if (key_press == "W")
-        	{
-        		myGamePiece.speedY = -40; 
-        	}
-        	if (key_press == "S")
-        	{
-        		myGamePiece.speedY = 40; 
-        	}
-        	if (key_press == "A")
-        	{
-        		myGamePiece.speedX = -40; 
-        	}
-        	if (key_press == "D")
-        	{
-        		myGamePiece.speedX = 40; 
-        	}
-        });
-    document.addEventListener('keyup', function(event) {
-        	var key_press = String.fromCharCode(event.keyCode);
-        	if (key_press == "W")
-        	{
-        		myGamePiece.speedY = 0; 
-        	}
-        	if (key_press == "S")
-        	{
-        		myGamePiece.speedY = 0; 
-        	}
-        	if (key_press == "A")
-        	{
-        		myGamePiece.speedX = 0; 
-        	}
-        	if (key_press == "D")
-        	{
-        		myGamePiece.speedX = 0; 
-        	}
-        });
     if (myGameArea.pause == false) {
         myGameArea.clear();
         myGameArea.frameNo += 1;
