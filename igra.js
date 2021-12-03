@@ -7,47 +7,48 @@ var canvasHeight = 942;
 var playerSpeed = 40;
 var ticks = 50;
 var ticksMs = Math.floor(1000 / ticks);
+var gameSpeed = -10; // Скорость движения препяствий. Минус чтобы двигаться влево, плюс чтобы двигаться вправо
+var obstacleGap = 40; // Промежуток между препятствиями (измеряется в тиках в секунду (ticks))
 
 document.addEventListener('keydown', function(event) {
-        var key_press = String.fromCharCode(event.keyCode);
-
-        switch(key_press) {
-        case "W":
-            myGamePiece.speedY = -playerSpeed;
-            break;
-        case "A":
-            myGamePiece.speedX = -playerSpeed; 
-            break;
-        case "S":
-            myGamePiece.speedY = playerSpeed; 
-            break;
-        case "D":
-            myGamePiece.speedX = playerSpeed; 
-            break;
-        case "R":
-            restartGame();
-            break;
-        default:
-            break;
-        }
-    });
+    var key_press = String.fromCharCode(event.keyCode);
+    switch(key_press) {
+    case "W":
+        myGamePiece.speedY = -playerSpeed;
+        break;
+    case "A":
+        myGamePiece.speedX = -playerSpeed; 
+        break;
+    case "S":
+        myGamePiece.speedY = playerSpeed; 
+        break;
+    case "D":
+        myGamePiece.speedX = playerSpeed; 
+        break;
+    case "R":
+        restartGame();
+        break;
+    default:
+        break;
+    }
+});
 document.addEventListener('keyup', function(event) {
     var key_press = String.fromCharCode(event.keyCode);
-    if (key_press == "W")
-    {
-        myGamePiece.speedY = 0; 
-    }
-    if (key_press == "S")
-    {
-        myGamePiece.speedY = 0; 
-    }
-    if (key_press == "A")
-    {
+    switch(key_press) {
+    case "W":
+        myGamePiece.speedY = 0;
+        break;
+    case "A":
         myGamePiece.speedX = 0; 
-    }
-    if (key_press == "D")
-    {
-        myGamePiece.speedX = 0; 
+        break;
+    case "S":
+        myGamePiece.speedY = 0;
+        break;
+    case "D":
+        myGamePiece.speedX = 0;
+        break;
+    default:
+        break;
     }
 });
 
@@ -92,7 +93,7 @@ function gamearea() {
     }
 }
 
-function component(width, height, color, x, y, type) {
+function component(width, height, color, x, y, type, bulletRate, bulletSpeed) {
 
     this.type = type;
     if (type == "text") {
@@ -104,14 +105,22 @@ function component(width, height, color, x, y, type) {
     this.speedX = 0;
     this.speedY = 0;    
     this.x = x;
-    this.y = y;    
+    this.y = y;
+    if (type == "bullet") {
+        this.bulletSpeed = bulletRate;
+    }
+    if (type == "cannon") {
+        this.bulletRate = bulletRate;
+        this.bulletSpeed = bulletSpeed;
+    }
     this.update = function() {
         ctx = myGameArea.context;
         if (this.type == "text") {
             ctx.font = this.width + " " + this.height;
             ctx.fillStyle = color;
             ctx.fillText(this.text, this.x, this.y);
-        } else {
+        } 
+        else {
             ctx.fillStyle = color;
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
@@ -134,11 +143,11 @@ function component(width, height, color, x, y, type) {
 }
 
 function generateRandomObstacle() {
-    var obstacleId = Math.floor(Math.random() * 2); //0 или 1
+    var obstacleId = Math.floor(Math.random() * 3); //0 - 2
 
     //ID 0 - Две трубы и пустое место посреди них
-    //ID 1 - ...
-    //ID 2 - ...
+    //ID 1 - Один черный блок
+    //ID 2 - Пушка снизу
 
     if (obstacleId == 0) {
         var x, y, min, max, height, gap;
@@ -162,8 +171,17 @@ function generateRandomObstacle() {
         height = 600;
         min = 20;
         max = 322;
-        gap1 = Math.floor(Math.random()*(max-min-1)+min);
-        myObstacles.push(new component(90, height, "black", x, gap1));
+        gap = Math.floor(Math.random()*(max-min-1)+min);
+        myObstacles.push(new component(90, height, "black", x, gap));
+    }
+    else if (obstacleId == 2) {
+        var x, y, bulletRate;
+
+        x = canvasWidth;
+        y = canvasHeight;
+        bulletRate = 25;
+        bulletSpeed = -20;
+        myObstacles.push(new component(90, 100, "red", x, y-120, "cannon", bulletRate, bulletSpeed));
     }
 }
 
@@ -180,11 +198,15 @@ function updateGameArea() {
         myGameArea.clear();
         myGameArea.frameNo += 1;
         myscore.score +=1;        
-        if (myGameArea.frameNo == 1 || everyinterval(20)) {
+        if (myGameArea.frameNo == 1 || everyinterval(obstacleGap)) {
             generateRandomObstacle();
         }
         for (i = 0; i < myObstacles.length; i += 1) {
-            myObstacles[i].x += -20;
+            if (myObstacles[i].type == "cannon" && everyinterval(myObstacles[i].bulletRate)) {
+                myObstacles.push(new component(70, 70, "red", myObstacles[i].x+10, myObstacles[i].y, "bullet", myObstacles[i].bulletSpeed));
+            }
+            if (myObstacles[i].type == "bullet") { myObstacles[i].y += myObstacles[i].bulletSpeed; }
+            myObstacles[i].x += gameSpeed;
             myObstacles[i].update();
         }
         myscore.text="SCORE: " + myscore.score + "| Pos: " + myGamePiece.x + ", " + myGamePiece.y;        
