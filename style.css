@@ -1,0 +1,46 @@
+@font-face {
+    font-family: "karton";
+    src: url(fonts/Cardboard\ Cat\ Extra\ Bold.ttf) format('truetype');
+    font-weight: bold;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-image: url('img/box_photos/boxPhoto_big.jpg');
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-family: 'karton', sans-serif;
+    font-size: 5em;
+    line-height: 1em;
+    background: url('img/cardboard.png') repeat center center;
+    -webkit-text-fill-color: transparent;
+    background-attachment:fixed;
+    background-size: auto;
+    -webkit-background-clip: text;
+    background-clip:text; 
+    -moz-background-clip:text;
+    -webkit-text-stroke: 1px #000;
+}
+
+p {
+    font-family: 'karton', sans-serif;
+    line-height: 10vh;
+    font-size: 5vh;
+    margin: 10px;
+    align-self: flex-start;
+    -webkit-text-stroke: 1px #fff;
+}
+
+h1:hover{
+    -webkit-text-stroke: 6px #000;
+}
