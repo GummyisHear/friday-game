@@ -69,6 +69,7 @@ function startGame() {
     myGameArea = new gamearea();
     myGamePiece = new component(60, 60, "red", 150, 150);
     myscore = new component("15px", "Consolas", "black", 220, 25, "text");
+    document.getElementById("gamecontainer").style.display = "block";
     myGameArea.start();
 }
 
@@ -190,7 +191,7 @@ function updateGameArea() {
         if (myGamePiece.crashWith(myObstacles[i])) {
             myGameArea.stop();
             document.getElementById("myfilter").style.display = "block";
-            document.getElementById("myrestartbutton").style.display = "block";
+            document.getElementById("myrestartbutton").style.display = "flex";
             return;
         }
     }
@@ -235,5 +236,3 @@ function everyinterval(n) {
     if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
     return false;
 }
-
-startGame();
