@@ -20,7 +20,7 @@ body {
 h1 {
     text-transform: uppercase;
     font-family: 'karton', sans-serif;
-    font-size: 5em;
+    font-size: 5vh;
     line-height: 1em;
     background: url('img/cardboard.png') repeat center center;
     -webkit-text-fill-color: transparent;
@@ -29,18 +29,17 @@ h1 {
     -webkit-background-clip: text;
     background-clip:text; 
     -moz-background-clip:text;
-    -webkit-text-stroke: 1px #000;
+    -webkit-text-stroke: 0.1vh #000;
 }
 
-p {
+.dev {
     font-family: 'karton', sans-serif;
     line-height: 10vh;
     font-size: 5vh;
-    margin: 10px;
     align-self: flex-start;
-    -webkit-text-stroke: 1px #fff;
+    -webkit-text-stroke: 0.1vh #fff;
 }
 
 h1:hover{
-    -webkit-text-stroke: 6px #000;
+    -webkit-text-stroke: 0.5vh #000;
 }
