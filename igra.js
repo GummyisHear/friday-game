@@ -28,6 +28,12 @@ document.addEventListener('keydown', function(event) {
     case "R":
         restartGame();
         break;
+    case String.fromCharCode(27): // Escape
+        pauseGame();
+        break;
+    case "P":
+        pauseGame();
+        break;
     default:
         break;
     }
@@ -71,6 +77,19 @@ function startGame() {
     myscore = new component("15px", "Consolas", "black", 220, 25, "text");
     document.getElementById("gamecontainer").style.display = "block";
     myGameArea.start();
+}
+
+function pauseGame() {
+    if (myGameArea.pause){
+        myGameArea.pause = false;
+        document.getElementById("myrestartbutton").style.display = "none";
+    }
+    else {
+        myGameArea.pause = true;
+        document.getElementById("myrestartbutton").style.display = "flex"; /*если 
+        "flex" заменить на "" будет так как я хочу отоброжать паузу и вообще вседа,
+        напишите в наш дискорд если поймёте как это сделать*/
+    }
 }
 
 function gamearea() {

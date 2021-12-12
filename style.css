@@ -20,6 +20,16 @@
 	background-size: 100% 100%;
 }
 
+body #gamecontainer #myrestartbutton{
+    display: block;
+} 
+
+#Sc0{ line-height: 0vh;}
+
+#myrestartbutton div{
+    flex-wrap: nowrap;
+}
+
 body {
     height: 100vh;
     display: flex;
@@ -31,6 +41,7 @@ body {
     background-size: 100% 100%;
     overflow-x: hidden;
     overflow-y: hidden;
+    /*display: block;*/ /* Должна выполнять строки 32&33: "overflow-..." */ 
 }
 
 h1 {
@@ -53,7 +64,6 @@ h1 {
     font-family: 'karton', sans-serif;
     line-height: 10vh;
     font-size: 5vh;
-    align-self: flex-start;
     -webkit-text-stroke: 0.1vh #fff;
 }
 

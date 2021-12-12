@@ -4,7 +4,6 @@
 	<meta charset="utf-8">
 	<title></title>
 	<link rel="stylesheet" href="style.css" />
-	<link rel="stylesheet" href="gamestyle.css" />
 </head>
 <body>
 
@@ -12,21 +11,41 @@
 	<div id="canvascontainer">
 	</div>
 
-	<div id="myfilter" style="background-color:#000000; opacity:0.3; display:none">
+	<div id="myfilter" style="background-color:#f00; opacity:0.3; display:none">
 	</div>
+	<div id="pausfilter" style="background-color:#000000; opacity:0.3; display:none">
+	</div>
+<!--нетронутая
 	<div id="myrestartbutton" style="position:absolute; left: 45%; top: 42.5%; display:none;">
 		<h1 onclick="restartGame()">Restart</h1>
 		<p>Your Score:</p>
+	</div> 
+-->
+	<div id="myrestartbutton" style="flex-direction:column; position:absolute; width: 100%; text-align:center; display:none;">
+		<p class="dev" style="font-size:10vh;">Game Over</p>
+		<p class="dev" >Your Score:</p>
+		<h1 onclick="restartGame()">Restart</h1>
+	</div>
+	
+	<div id="levelPassed" style="flex-direction:column; position:absolute; width: 100%; text-align:center; display:none;">
+		<p class="dev" style="font-size:10vh;">Level passed!</p>
+		<p class="dev" id="Sc0">Your Score:</p>
+		<p class="dev" id="Sc0">Your Time:</p>
+		<div id="afterButtons" style="flex-wrap: nowrap;width: 100%">
+			<h1 onclick="toMenu()">Menu</h1>
+			<h1 onclick="restartGame()">Restart?</h1>
+			<h1 onclick="nextLvl()">Next Level</h1>
+		</div>
 	</div>
 </div>
 
 <area id="menuarea">
 	<h1 onclick="startGame()">START</h1>
-	<h1>shop</h1>
-	<h1>options</h1>
-	<h1>music: mute</h1>
-	<h1>sounds: mute</h1>
-	<p class="dev">Artjom Põldsaar, Ervin Rebane, Juri Skljarenko</p>
+	<h1 onclick="shop()">shop</h1>
+	<h1 onclick="options()">options?</h1>
+	<h1 onclick="music()">music: mute</h1>
+	<h1 onclick="sounds()">sounds: mute</h1>
+	<p class="dev" style="align-self:flex-start;">Artjom Põldsaar, Ervin Rebane, Juri Skljarenko</p>
 </area>
 
 
