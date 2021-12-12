@@ -26,9 +26,7 @@ body #gamecontainer #myrestartbutton{
 
 #Sc0{ line-height: 0vh;}
 
-#myrestartbutton div{
-    flex-wrap: nowrap;
-}
+#gamecontainer #afterButtons h1{font-size:8vh; flex-wrap: nowrap;}
 
 body {
     height: 100vh;
