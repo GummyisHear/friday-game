@@ -127,6 +127,20 @@ function music(){
     //m.load();
     document.getElementById("testmusic").loop = true;
     //document.getElementById("testmusic").muted = true;
+}
+
+function pauseGame() {
+    if (myGameArea.pause){
+        myGameArea.pause = false;
+        document.getElementById("gamePaused").style.display = "none";
+    }
+    else {
+        myGameArea.pause = true;
+        document.getElementById("gamePaused").style.display = "flex"; /*если 
+        "flex" заменить на "" будет так как я хочу отоброжать паузу и вообще вседа,
+        напишите в наш дискорд если поймёте как это сделать*/
+    }
+}
 
 function finishGame() {
     myGameArea.pause = true;
