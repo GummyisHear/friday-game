@@ -38,6 +38,18 @@ document.addEventListener('keydown', function(event) {
         case "P":
             pauseGame();
             break;
+        //----------------------------------------------------------------------------
+        //КЛАВИШИ Для тестов УДАЛИТЬ ДО Релиза!!
+        // ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
+        case "L":
+            lvlPass();
+            break;
+        case "J":
+            newnewGame();
+            break;
+        // ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ 
+        //КЛАВИШИ Для тестов УДАЛИТЬ ДО Релиза!!
+        //----------------------------------------------------------------------------
         default:
             break;
         }
@@ -46,6 +58,18 @@ document.addEventListener('keydown', function(event) {
     {
         var key_press = String.fromCharCode(event.keyCode);
         switch(key_press) {
+            //----------------------------------------------------------------------------
+            //КЛАВИШИ Для тестов УДАЛИТЬ ДО Релиза!!
+            // ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
+            case "L":
+            lvlPass();
+            break;
+            case "J":
+            newnewGame();
+            break;
+            // ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ 
+            //КЛАВИШИ Для тестов УДАЛИТЬ ДО Релиза!!
+            //----------------------------------------------------------------------------
             case "R":
             restartGame();
             break;
@@ -74,6 +98,26 @@ document.addEventListener('keyup', function(event) {
     }
 });
 
+//----------------------------------------------------------------------------
+//функции Для тестов УДАЛИТЬ ДО Релиза!!
+// ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
+function lvlClear(){
+    document.getElementById("myfilter").style.display = "none";
+    document.getElementById("myrestartbutton").style.display = "none";
+    document.getElementById("pausfilter").style.display = "none";
+    document.getElementById("levelPassed").style.display = "none";
+    document.getElementById("gamePaused").style.display = "none";
+}
+
+function lvlPass(){
+    document.getElementById("pausfilter").style.display = "block";
+    document.getElementById("levelPassed").style.display = "flex";
+};
+
+function newnewGame(){};
+// ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ 
+//функции Для тестов УДАЛИТЬ ДО Релиза!!
+//----------------------------------------------------------------------------
 function restartGame() {
     document.getElementById("myfilter").style.display = "none";
     document.getElementById("myrestartbutton").style.display = "none";
@@ -122,15 +166,14 @@ function startGame() {
 
 function pauseGame() {
     if (myGameArea.pause){
-        myGameArea.pause = false;
         document.getElementById("gamePaused").style.display = "none";
     }
     else {
-        myGameArea.pause = true;
         document.getElementById("gamePaused").style.display = "flex"; /*если 
         "flex" заменить на "" будет так как я хочу отоброжать паузу и вообще вседа,
         напишите в наш дискорд если поймёте как это сделать*/
     }
+    myGameArea.pause ^= true;
 }
 
 function finishGame() {
