@@ -58,13 +58,51 @@
 	<h1 onclick="shop()">shop</h1>
 	<h1 onclick="options()">options?</h1>
 	<audio id="testmusic" controls>
-  <source src="ridiculon-spike-tales.mp3" type="audio/mpeg">
+  <source src="modules/ridiculon-spike-tales.mp3" type="audio/mpeg">
 </audio>
 	<h1 onclick="music()">music: On</h1>
 	<h1 onclick="sounds()">sounds: mute</h1>
 	<p class="dev" style="align-self:flex-start;">Artjom Põldsaar, Ervin Rebane, Juri Skljarenko</p>
 </area>
 
+<area id="shopSc" >
+	<h1 onclick="closeGame()" style="display:flex; align-self:flex-end; width:30%;">&#10060;</h1>
+	<div class="container">
+		<p class="dev" style="font-size:10vh;">Shop</p>
+		<div class="w3-col s2">
+			<div class="card">
+				<img src="img/igr1.gif" style="width:100%">
+				<div class="container">
+					<h1 onclick="changeColor('#ed1c23')">&nbsp;Equip&nbsp;</h1>
+				</div>
+			</div>
+		</div>
+		<div class="w3-col s2" >
+			<div class="card" >
+				<img src="img/igr2.gif" style="width:100%">
+				<div class="container">
+					<h1 onclick="changeColor('##fffb00')">&nbsp;Equip&nbsp;</h1>
+				</div>
+			</div>	
+		</div>
+		<div class="w3-col s2">
+			<div class="card">
+				<img src="img/igr3.gif" style="width:100%">
+				<div class="container">
+					<h1 onclick="changeColor('#22b14c')">&nbsp;Equip&nbsp;</h1>
+				</div>
+			</div>
+		</div>
+		<div class="w3-col s2">
+			<div class="card">
+				<img src="img/igr4.gif" style="width:100%">
+				<div class="container">
+					<h1 onclick="changeColor('#0d19ff')">&nbsp;Equip&nbsp;</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</area>
 
 
 <script src="igra.js" type="text/javascript"></script>

@@ -138,10 +138,7 @@ function newnewGame(){};
 //функции Для тестов УДАЛИТЬ ДО Релиза!!
 //----------------------------------------------------------------------------
 function restartGame() {
-    document.getElementById("myfilter").style.display = "none";
-    document.getElementById("myrestartbutton").style.display = "none";
-    document.getElementById("gamePaused").style.display = "none";
-    document.getElementById("levelPassed").style.display = "none";
+    lvlClear();
     myGameArea.stop();
     myGameArea.clear();
     myGameArea = {};
