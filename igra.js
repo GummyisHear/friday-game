@@ -10,53 +10,67 @@ var ticksMs = Math.floor(1000 / ticks);
 var gameSpeed = -10; // Скорость движения препяствий. Минус чтобы двигаться влево, плюс чтобы двигаться вправо
 var obstacleGap = 40; // Промежуток между препятствиями (измеряется в тиках в секунду (ticks))
 var currentObstacle = 0;
-var currentLevel = [];
+var gameRunning = false;
+var gameOver = false;
 
 document.addEventListener('keydown', function(event) {
-    var key_press = String.fromCharCode(event.keyCode);
-    switch(key_press) {
-    case "W":
-        myGamePiece.speedY = -playerSpeed;
-        break;
-    case "A":
-        myGamePiece.speedX = -playerSpeed; 
-        break;
-    case "S":
-        myGamePiece.speedY = playerSpeed; 
-        break;
-    case "D":
-        myGamePiece.speedX = playerSpeed; 
-        break;
-    case "R":
-        restartGame();
-        break;
-    case String.fromCharCode(27): // Escape
-        pauseGame();
-        break;
-    case "P":
-        pauseGame();
-        break;
-    default:
-        break;
+    if (gameRunning) {
+        var key_press = String.fromCharCode(event.keyCode);
+        switch(key_press) {
+        case "W":
+            myGamePiece.speedY = -playerSpeed;
+            break;
+        case "A":
+            myGamePiece.speedX = -playerSpeed; 
+            break;
+        case "S":
+            myGamePiece.speedY = playerSpeed; 
+            break;
+        case "D":
+            myGamePiece.speedX = playerSpeed; 
+            break;
+        case "R":
+            restartGame();
+            break;
+        case String.fromCharCode(27): // Escape
+            pauseGame();
+            break;
+        case "P":
+            pauseGame();
+            break;
+        default:
+            break;
+        }
+    }
+    else if (gameOver)
+    {
+        var key_press = String.fromCharCode(event.keyCode);
+        switch(key_press) {
+            case "R":
+            restartGame();
+            break;
+        }
     }
 });
 document.addEventListener('keyup', function(event) {
-    var key_press = String.fromCharCode(event.keyCode);
-    switch(key_press) {
-    case "W":
-        myGamePiece.speedY = 0;
-        break;
-    case "A":
-        myGamePiece.speedX = 0; 
-        break;
-    case "S":
-        myGamePiece.speedY = 0;
-        break;
-    case "D":
-        myGamePiece.speedX = 0;
-        break;
-    default:
-        break;
+    if (gameRunning) {
+        var key_press = String.fromCharCode(event.keyCode);
+        switch(key_press) {
+        case "W":
+            myGamePiece.speedY = 0;
+            break;
+        case "A":
+            myGamePiece.speedX = 0; 
+            break;
+        case "S":
+            myGamePiece.speedY = 0;
+            break;
+        case "D":
+            myGamePiece.speedX = 0;
+            break;
+        default:
+            break;
+        }
     }
 });
 
@@ -70,7 +84,7 @@ function restartGame() {
     myObstacles = [];
     currentObstacle = 0;
     myscore = {};
-    currentLevel = [];
+    //currentLevel = [];
     document.getElementById("canvascontainer").innerHTML = "";
     startGame();
 }
@@ -82,9 +96,10 @@ function startGame() {
 
     document.getElementById("gamecontainer").style.display = "block";
     
+    //currentLevel = 0;
 
-    currentLevel = 0;
     myGameArea.start();
+    gameRunning = true;
 }
 
 function pauseGame() {
@@ -104,17 +119,21 @@ function gamearea() {
     this.canvas = document.createElement("canvas");
     this.canvas.width = canvasWidth;
     this.canvas.height = canvasHeight;
+    this.currentLevel = 0;
 
     document.getElementById("canvascontainer").appendChild(this.canvas);
     this.context = this.canvas.getContext("2d");
     this.pause = false;
     this.frameNo = 0;
     this.start = function() {
+        gameRunning = true;
         this.interval = setInterval(updateGameArea, ticksMs);
     }
     this.stop = function() {
         clearInterval(this.interval);
         this.pause = true;
+        gameRunning = false;
+        gameOver = true;
     }
     this.clear = function(){
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
