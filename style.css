@@ -43,6 +43,9 @@ body {
 }
 
 h1 {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
     text-transform: uppercase;
     font-family: 'karton', sans-serif;
     font-size: 5vh;

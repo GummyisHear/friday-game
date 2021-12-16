@@ -77,6 +77,8 @@ document.addEventListener('keyup', function(event) {
 function restartGame() {
     document.getElementById("myfilter").style.display = "none";
     document.getElementById("myrestartbutton").style.display = "none";
+    document.getElementById("gamePaused").style.display = "none";
+    document.getElementById("levelPassed").style.display = "none";
     myGameArea.stop();
     myGameArea.clear();
     myGameArea = {};
@@ -87,6 +89,22 @@ function restartGame() {
     //currentLevel = [];
     document.getElementById("canvascontainer").innerHTML = "";
     startGame();
+}
+function closeGame() {
+    myGameArea.clear();
+    myGameArea.stop();
+    gameRunning = false;
+    myGameArea = {};
+    myGamePiece = {};
+    myObstacles = [];
+    currentObstacle = 0;
+    myscore = {};
+    document.getElementById("gamecontainer").style.display = "none";
+    document.getElementById("myfilter").style.display = "none";
+    document.getElementById("myrestartbutton").style.display = "none";
+    document.getElementById("gamePaused").style.display = "none";
+    document.getElementById("levelPassed").style.display = "none";
+    document.getElementById("canvascontainer").innerHTML = "";
 }
 
 function startGame() {
@@ -105,14 +123,21 @@ function startGame() {
 function pauseGame() {
     if (myGameArea.pause){
         myGameArea.pause = false;
-        document.getElementById("myrestartbutton").style.display = "none";
+        document.getElementById("gamePaused").style.display = "none";
     }
     else {
         myGameArea.pause = true;
-        document.getElementById("myrestartbutton").style.display = "flex"; /*если 
+        document.getElementById("gamePaused").style.display = "flex"; /*если 
         "flex" заменить на "" будет так как я хочу отоброжать паузу и вообще вседа,
         напишите в наш дискорд если поймёте как это сделать*/
     }
+}
+
+function finishGame() {
+    myGameArea.pause = true;
+    gameRunning = false;
+    gameOver = false;
+    document.getElementById("levelPassed").style.display = "flex";
 }
 
 function gamearea() {
@@ -137,6 +162,10 @@ function gamearea() {
     }
     this.clear = function(){
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    this.finish = function(){
+        clearInterval(this.interval);
+        finishGame();
     }
 }
 
@@ -234,10 +263,15 @@ function generateRandomObstacle() {
 
 function updateGameArea() {
     for (i = 0; i < myObstacles.length; i += 1) {
-        if (myGamePiece.crashWith(myObstacles[i])) {
+        if (myGamePiece.crashWith(myObstacles[i]) && myObstacles[i].type != "finish") {
             myGameArea.stop();
             document.getElementById("myfilter").style.display = "block";
             document.getElementById("myrestartbutton").style.display = "flex";
+            return;
+        }
+        else if (myGamePiece.crashWith(myObstacles[i]) && myObstacles[i].type == "finish")
+        {
+            myGameArea.finish();
             return;
         }
     }
