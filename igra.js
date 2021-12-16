@@ -12,6 +12,7 @@ var obstacleGap = 40; // Промежуток между препятствия�
 var currentObstacle = 0;
 var gameRunning = false;
 var gameOver = false;
+var characterColor = "#FF0000";
 
 document.addEventListener('keydown', function(event) {
     if (gameRunning) {
@@ -153,7 +154,7 @@ function closeGame() {
 
 function startGame() {
     myGameArea = new gamearea();
-    myGamePiece = new component(60, 60, "red", 150, 150);
+    myGamePiece = new component(60, 60, characterColor, 150, 150);
     myscore = new component("15px", "Consolas", "black", 220, 25, "text");
 
     document.getElementById("gamecontainer").style.display = "block";
@@ -162,6 +163,10 @@ function startGame() {
 
     myGameArea.start();
     gameRunning = true;
+}
+
+function changeColor(hexcolor) {
+    characterColor = hexcolor;
 }
 
 function music(){
