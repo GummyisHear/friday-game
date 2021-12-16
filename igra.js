@@ -189,7 +189,26 @@ function finishGame() {
     myGameArea.pause = true;
     gameRunning = false;
     gameOver = false;
+    addScore();
+    addTime();
     document.getElementById("levelPassed").style.display = "flex";
+}
+
+function addScore() {
+    scores = document.getElementsByClassName("scoreThing");
+    //scores[0].innerHTML
+    for (i=0;i<scores.length;i++) {scores[i].innerHTML="Your Score: " + myscore.score;}
+}
+
+function addTime() {
+    times = document.getElementsByClassName("timeThing");
+    timeSeconds = Math.floor((myGameArea.frameNo * ticksMs) / 1000);
+    timeMinutes = Math.floor(timeSeconds/60);
+    timeSeconds = timeSeconds - (60 * timeMinutes);
+    if (timeSeconds<10) timeSeconds = "0" + timeSeconds;
+    if (timeMinutes<10) timeMinutes = "0" + timeMinutes;
+
+    for (i=0;i<times.length;i++) {times[i].innerHTML="Your Time: " + timeMinutes + ":" + timeSeconds;}
 }
 
 function gamearea() {
@@ -317,6 +336,8 @@ function updateGameArea() {
     for (i = 0; i < myObstacles.length; i += 1) {
         if (myGamePiece.crashWith(myObstacles[i]) && myObstacles[i].type != "finish") {
             myGameArea.stop();
+            addScore();
+            addTime();
             document.getElementById("myfilter").style.display = "block";
             document.getElementById("myrestartbutton").style.display = "flex";
             return;
