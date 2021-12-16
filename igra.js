@@ -30,6 +30,18 @@ document.addEventListener('keydown', function(event) {
         case "D":
             myGamePiece.speedX = playerSpeed; 
             break;
+        case String.fromCharCode(38):
+            myGamePiece.speedY = -playerSpeed;
+            break;
+        case String.fromCharCode(37):
+            myGamePiece.speedX = -playerSpeed; 
+            break;
+        case String.fromCharCode(40):
+            myGamePiece.speedY = playerSpeed; 
+            break;
+        case String.fromCharCode(39):
+            myGamePiece.speedX = playerSpeed; 
+            break;
         case "R":
             restartGame();
             break;
@@ -53,8 +65,7 @@ document.addEventListener('keydown', function(event) {
         //----------------------------------------------------------------------------
         default:
             break;
-        }
-    }
+        }}
     else if (gameOver)
     {
         var key_press = String.fromCharCode(event.keyCode);
@@ -74,9 +85,7 @@ document.addEventListener('keydown', function(event) {
             case "R":
             restartGame();
             break;
-        }
-    }
-});
+        }}});
 document.addEventListener('keyup', function(event) {
     if (gameRunning) {
         var key_press = String.fromCharCode(event.keyCode);
@@ -93,12 +102,21 @@ document.addEventListener('keyup', function(event) {
         case "D":
             myGamePiece.speedX = 0;
             break;
+        case String.fromCharCode(38):
+            myGamePiece.speedY = 0;
+            break;
+        case String.fromCharCode(37):
+            myGamePiece.speedX = 0; 
+            break;
+        case String.fromCharCode(40):
+            myGamePiece.speedY = 0; 
+            break;
+        case String.fromCharCode(39):
+            myGamePiece.speedX = 0; 
+            break;
         default:
             break;
-        }
-    }
-});
-
+        }}});
 //----------------------------------------------------------------------------
 //функции Для тестов УДАЛИТЬ ДО Релиза!!
 // ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
