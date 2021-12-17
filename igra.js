@@ -13,6 +13,7 @@ var currentObstacle = 0;
 var gameRunning = false;
 var gameOver = false;
 var characterColor = "#FF0000";
+var endlessMode = false;
 
 document.addEventListener('keydown', function(event) {
     if (gameRunning) {
@@ -153,6 +154,7 @@ function restartGame() {
 function closeGame() {
     myGameArea.clear();
     myGameArea.stop();
+    endlessMode = false;
     gameRunning = false;
     myGameArea = {};
     myGamePiece = {};
@@ -165,6 +167,32 @@ function closeGame() {
     document.getElementById("gamePaused").style.display = "none";
     document.getElementById("levelPassed").style.display = "none";
     document.getElementById("canvascontainer").innerHTML = "";
+}
+
+function startGame() {
+    endlessMode = false;
+    myGameArea = new gamearea();
+    myGamePiece = new component(60, 60, characterColor, 150, 150);
+    myscore = new component("15px", "Consolas", "black", 220, 25, "text");
+
+    document.getElementById("gamecontainer").style.display = "block";
+    
+    //currentLevel = 0;
+
+    myGameArea.start();
+    gameRunning = true;
+}
+
+function startEndlessGame() {
+    endlessMode = true;
+    myGameArea = new gamearea();
+    myGamePiece = new component(60, 60, characterColor, 150, 150);
+    myscore = new component("15px", "Consolas", "black", 220, 25, "text");
+
+    document.getElementById("gamecontainer").style.display = "block";
+
+    myGameArea.start();
+    gameRunning = true;
 }
 
 function startGame() {
@@ -235,7 +263,6 @@ function gamearea() {
     this.canvas = document.createElement("canvas");
     this.canvas.width = canvasWidth;
     this.canvas.height = canvasHeight;
-    this.currentLevel = 0;
 
     document.getElementById("canvascontainer").appendChild(this.canvas);
     this.context = this.canvas.getContext("2d");
@@ -373,8 +400,12 @@ function updateGameArea() {
         myGameArea.frameNo += 1;
         myscore.score +=1;
 
-        //эпичный комментарий
-        generateLevel();
+        if (!endlessMode) {
+            generateLevel();
+        }
+        else if (endlessMode && (myGameArea.frameNo == 1 || everyinterval(obstacleGap))) {
+            generateRandomObstacle();
+        }
         
         for (i = 0; i < myObstacles.length; i += 1) {
             if (myObstacles[i].type == "cannon" && everyinterval(myObstacles[i].bulletRate)) {
