@@ -38,6 +38,14 @@ body #gamecontainer #myrestartbutton{
     justify-content: center;
     flex-direction: column;
 }
+#shopSc p, body #gamecontainer #shopSc #iksBtn {
+    width: 100%;
+    height: 100%;
+    margin-left: 30%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
 .container {
     width: fit-content;
     height: fit-content;
@@ -101,4 +109,9 @@ h1 {
 
 h1:hover{
     -webkit-text-stroke: 0.5vh #000;
+}
+
+h1#sndOnOff:hover{
+    -webkit-text-stroke: 0.1vh #000;
+    cursor:default;
 }

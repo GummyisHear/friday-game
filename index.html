@@ -13,7 +13,7 @@
 
 	<div id="myfilter" style="background-color:#f00; opacity:0.3; display:none">
 	</div>
-	<div id="pausfilter" style="background-color:#000000; opacity:0.3; display:none">
+	<div id="pausfilter" style="background-color:#000000; opacity:0.5; display:none">
 	</div>
 <!--нетронутая
 	<div id="myrestartbutton" style="position:absolute; left: 45%; top: 42.5%; display:none;">
@@ -34,10 +34,11 @@
 
 	<div id="gamePaused" style="flex-direction:column; position:absolute; width: 100%; text-align:center; display:none;">
 		<p class="dev" style="font-size:10vh;">Paused</p>
+		<h1 id="musOnOff" onclick="music()">music: Off</h1>
 		<div id="afterButtons" style="flex-wrap: nowrap">
 			<h1 onclick="closeGame()">&nbsp;&nbsp; &equiv; &nbsp;&nbsp;</h1>
 			<h1 onclick="restartGame()">&nbsp;&nbsp; &#x21bb; &nbsp;&nbsp;</h1>
-			<h1 onclick="nextLvl()">&nbsp;&nbsp; &raquo; &nbsp;&nbsp;</h1>
+			<h1 onclick="pauseGame()">&nbsp;&nbsp; &#9654; &nbsp;&nbsp;</h1>
 		</div>
 	</div>
 	
@@ -60,20 +61,18 @@
 	<h1 onclick="startEndlessGame();">ENDLESS MODE</h1>
 	<h1 onclick="shop();">shop</h1>
 
-	<audio id="testmusic" controls>
-  		<source src="modules/ridiculon-spike-tales.mp3" type="audio/mpeg">
-	</audio>
+	<audio id="testmusic" src="modules/ridiculon-spike-tales.mp3" preload="auto" /*controls*/></audio>
 
-	<h1 onclick="music()">music: On</h1>
-	<h1 onclick="sounds()">sounds: mute</h1>
+	<h1 id="musOnOff" onclick="music()">music: Off</h1>
+	<h1 id="sndOnOff" onclick="sounds()">sounds: mute</h1>
 	<p class="dev" style="align-self:flex-start;">Artjom Põldsaar, Ervin Rebane, Juri Skljarenko</p>
 </area>
 
 <div id="shopSc" style="display: none;">
 	<div class="container">
 		<div>
-		<p class="dev" style="display: inline-block; font-size:10vh;">Shop</p>
-		<h1 onclick="closeShop()" style="display: flex inline-block; padding-left: 30%; align-self:flex-end; width:30%;">&#10060;</h1>
+		<p class="dev" style="display: inline-block; align-self:center; font-size:12vh;">Shop</p>
+    	<h1 onclick="closeShop()" style="display:inline-block; padding-left: 100%; align-self:flex-end; font-size:9vh;" id="iksBtn">&#10060;</h1>
 		</div>
 		<div class="w3-col s2">
 			<div class="card">

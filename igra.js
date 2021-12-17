@@ -58,9 +58,6 @@ document.addEventListener('keydown', function(event) {
         case "L":
             lvlPass();
             break;
-        case "J":
-            newnewGame();
-            break;
         // ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ 
         //КЛАВИШИ Для тестов УДАЛИТЬ ДО Релиза!!
         //----------------------------------------------------------------------------
@@ -76,9 +73,6 @@ document.addEventListener('keydown', function(event) {
             // ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
             case "L":
             lvlPass();
-            break;
-            case "J":
-            newnewGame();
             break;
             // ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ 
             //КЛАВИШИ Для тестов УДАЛИТЬ ДО Релиза!!
@@ -118,9 +112,6 @@ document.addEventListener('keyup', function(event) {
         default:
             break;
         }}});
-//----------------------------------------------------------------------------
-//функции Для тестов УДАЛИТЬ ДО Релиза!!
-// ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
 function lvlClear(){
     document.getElementById("myfilter").style.display = "none";
     document.getElementById("myrestartbutton").style.display = "none";
@@ -128,10 +119,15 @@ function lvlClear(){
     document.getElementById("levelPassed").style.display = "none";
     document.getElementById("gamePaused").style.display = "none";
 }
+//----------------------------------------------------------------------------
+//функции Для тестов УДАЛИТЬ ДО Релиза!!
+// ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
 
 function lvlPass(){
+    lvlClear();
     document.getElementById("pausfilter").style.display = "block";
     document.getElementById("levelPassed").style.display = "flex";
+    myGameArea.pause ^= true;
 };
 
 function newnewGame(){};
@@ -213,20 +209,28 @@ function changeColor(hexcolor) {
 }
 
 function music(){
-    var m = document.getElementById("testmusic");
-    //var m = document.getElementById("testmusic");
-    //m.autoplay = true;
-    //m.load();
     document.getElementById("testmusic").loop = true;
-    //document.getElementById("testmusic").muted = true;
+    var EmusOnOff = document.getElementById("musOnOff").innerText
+    //document.getElementById("testmusic").muted ^= true; //меняет значение T/F
+    if (EmusOnOff=="MUSIC: OFF"){
+        document.getElementById("musOnOff").innerText= "music: On";
+        document.getElementById("testmusic").play();
+    }
+    else {
+        document.getElementById("musOnOff").innerText= "music: Off";
+        document.getElementById('testmusic').pause();
+    }
+    
 }
 
 function pauseGame() {
     if (myGameArea.pause){
+        lvlClear();
         document.getElementById("pausfilter").style.display = "none";
         document.getElementById("gamePaused").style.display = "none";
     }
     else {
+        lvlClear();
         document.getElementById("pausfilter").style.display = "block";
         document.getElementById("gamePaused").style.display = "flex"; /*если 
         "flex" заменить на "" будет так как я хочу отоброжать паузу и вообще вседа,
