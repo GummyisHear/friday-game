@@ -54,6 +54,8 @@
 </div>
 
 <area id="menuarea">
+	<div id="shopfilter" style="background-color:#22b14c; opacity:0.3; display:none"></div>
+	
 	<h1 onclick="startGame();">START</h1>
 	<h1 onclick="startEndlessGame();">ENDLESS MODE</h1>
 	<h1 onclick="shop();">shop</h1>
@@ -110,9 +112,11 @@
 
 <script type="text/javascript">
 	function shop() {
+		document.getElementById("shopfilter").style.display = "block";
 		document.getElementById("shopSc").style.display = "flex";
 	}
 	function closeShop() {
+		document.getElementById("shopfilter").style.display = "none";
 		document.getElementById("shopSc").style.display = "none";
 	}
 </script>

@@ -223,9 +223,11 @@ function music(){
 
 function pauseGame() {
     if (myGameArea.pause){
+        document.getElementById("pausfilter").style.display = "none";
         document.getElementById("gamePaused").style.display = "none";
     }
     else {
+        document.getElementById("pausfilter").style.display = "block";
         document.getElementById("gamePaused").style.display = "flex"; /*если 
         "flex" заменить на "" будет так как я хочу отоброжать паузу и вообще вседа,
         напишите в наш дискорд если поймёте как это сделать*/
