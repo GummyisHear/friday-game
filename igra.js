@@ -148,6 +148,7 @@ function restartGame() {
     startGame();
 }
 function closeGame() {
+    lvlClear();
     myGameArea.clear();
     myGameArea.stop();
     endlessMode = false;
