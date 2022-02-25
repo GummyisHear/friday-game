@@ -7,6 +7,8 @@
 -счётчики (секунд выжывания /пройденных испытаний)-> 'your time: /your score:' 
 
 https://gummyishear.github.io/
+
 https://gummyishear.github.io/
+
 https://gummyishear.github.io/
 
